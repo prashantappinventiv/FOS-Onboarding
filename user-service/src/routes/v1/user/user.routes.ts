@@ -43,4 +43,4 @@ class V1UserRouteClass extends BaseRoute {
         );
     }
 }
-export default new V1UserRouteClass('/');
+export default new V1UserRouteClass('/v1/user');

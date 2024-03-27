@@ -11,7 +11,7 @@ export const CONSTANT = {
     BASIC_USERNAME: 'FOS_SOCIAL_MEDIA',
 };
 
-export const ENVIRONMENT = {
+export const ENVIORNMENT = {
     PRODUCTION: `prod`,
     PREPROD: `pre-prod`,
     DEVELOPMENT: `development`,
@@ -44,4 +44,10 @@ export const DATABASE_CONST = {
         OTP_EXPIRE_TIME: 30 * 60 * 1000,
         ONE_DAY: 86400,
     },
+
 };
+export const SYS_ERR = {
+    NODE_ENV_INVALID: 100,
+    BOOTSTRAP_ERROR: 101,
+    MONGO_CONN_FAILED: 103,
+}

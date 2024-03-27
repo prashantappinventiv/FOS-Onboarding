@@ -3,7 +3,6 @@ import { ENUM } from '../../common/enum.common';
 import { RESPONSE } from '../../common/responses';
 import { UserV1 } from '../../entity/v1/user.v1.entity';
 import { AcceptAny } from '../../interfaces/types';
-import { Signup } from '../../typings/user.typings';
 import BaseClass from '../base.controller';
 import { Request, Response, NextFunction } from 'express';
 
@@ -18,7 +17,7 @@ class UserClass extends BaseClass {
         try {
             let payload: AcceptAny = req.body;
             await UserV1.deleteDuplicateUser(payload);
-            const userExists: IUser.User = await UserV1.findUserByEmailOrMobileNo(payload);
+            const userExists: IUser.User = await UserV1.findUserByEmail(payload);
             payload = await builders.User.user.prepareSignUpData(payload);
             let userData: IUser.User;
             if (!userExists) {

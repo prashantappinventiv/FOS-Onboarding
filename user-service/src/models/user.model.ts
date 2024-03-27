@@ -35,16 +35,13 @@ export const UserSchema: any = new Schema(
         emailVerify: { type: Boolean, default: false },
         otp: { type: String },
         otpTimeStamp: { type: String },
-        otpAttempts: { type: Number, default: 3 },
+        otpAttempts: { type: Number, default: 0 },
         profileImage: { type: String, default: '' },
         isPublic: { type: Boolean, default: true },
-        supporter: { type: Number, default: 0 },
-        content: { type: Number, default: 0 },
-        connection: { type: Number, default: 0 },
         role: {
             type: String,
             enum: ['Content Creator', 'Upcoming Content Creator', 'Viewer'],
-            required: true,
+            required: false,
         },
     },
     {

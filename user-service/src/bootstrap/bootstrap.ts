@@ -1,4 +1,3 @@
-import { mongo } from '../providers/database/mongo.connection';
 import { App } from './app';
 import { Grpc } from './grpc';
 import { KafkaManager } from '../providers/kafka/kafka';
@@ -15,7 +14,7 @@ export class Bootstrap {
     }
 
     private async startApplication() {
-        mongo.initiateMongoConnection();
+        // mongo.initiateMongoConnection();
         this.gRPC = new Grpc();
         this.app = new App();
     }

@@ -9,6 +9,7 @@ import BaseEntity from '../base-mongo.entity';
 import { ENUM } from '../../common/enum.common';
 import { AcceptAny } from '../../interfaces/types';
 import userModel from '../../models/user.model';
+import { user } from '../../builders/v1';
 
 class UserEntity extends BaseEntity {
     constructor(model: Model<any>) {
@@ -21,6 +22,7 @@ class UserEntity extends BaseEntity {
      */
     async createUser(payload: any): Promise<IUser.User> {
         const userData = await new this.model(payload).save();
+        console.log('------______>', userData);
         return userData.toObject();
     }
 
@@ -49,15 +51,12 @@ class UserEntity extends BaseEntity {
      * @description To find user by email or mobile number
      */
 
-    async findUserByEmailOrMobileNo(params: IUser.Signup | any) {
+    async findUserByEmail(params: IUser.Signup | any) {
         try {
             const query: any = {};
             query['$or'] = [
                 {
                     $and: [{ email: params.email }, { emailVerify: true }],
-                },
-                {
-                    $and: [{ phoneNo: params.phoneNo }, { phoneVerify: true }],
                 },
             ];
             const options = { lean: true };

@@ -9,7 +9,7 @@ import HTTP from './code.response';
 export const MSG: any = {
     SUCCESS: 'Success',
     USER_DETAILS: 'User Details get successfully',
-    SIGNUP_SUCCESSFULLY: 'Signup successfully, One time passcode sent to your phone No .',
+    SIGNUP_SUCCESSFULLY: 'Signup successfully .',
     EMAIL_ALREADY_EXISTS: 'This email is already registered',
     PHONE_NO_ALREADY_EXISTS: 'This phone no is already registered',
     OTP_INVALID: 'Please enter valid OTP.',

@@ -1,15 +1,17 @@
 import express, { Express } from 'express';
 import cors from 'cors';
-import { routes } from '../routes/routes';
 import { config } from '../providers/aws/secret-manager';
 import { Config } from '../interfaces/config';
+import routes from '../routes/index';
 import * as dotenv from 'dotenv';
 import { i18nLocale } from '../providers/locale/locale.service';
 import { InvalidRoute } from '../middlewares/handlers.middleware';
+import { mongoDOA } from '../providers/database/mongo.connection';
 dotenv.config();
 export class App {
     private app: Express;
     private port: number = config.get(Config.USER_APP_PORT);
+    private uri: string = config.get(Config.MONGO_CONNECTION_URI);
     private contextPath: string = config.get(Config.USER_APP_CONTEXT_PATH);
 
     constructor() {
@@ -23,6 +25,7 @@ export class App {
         this.app = express();
         this.loadGlobalMiddlewares();
         this.loadRoutes();
+        mongoDOA.connectDatabase(this.uri);
         this.initializeServer();
     }
 
@@ -39,7 +42,8 @@ export class App {
      * @description Load All Routes
      */
     private loadRoutes() {
-        this.app.use(this.contextPath, routes.loadAllRoutes());
+        this.app.use(routes.path, routes.instance);
+        // this.app.use(this.contextPath, routes.loadAllRoutes());
         this.app.use(InvalidRoute);
     }
 

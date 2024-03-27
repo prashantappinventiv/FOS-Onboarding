@@ -7,11 +7,11 @@ export interface Signup {
 }
 
 export interface User extends Document {
-    otp: string;
-    phoneNo: string;
+    otp?: string;
+    phoneNo?: string;
     email: string;
     zipcode?: string;
-    name: string;
+    name?: string;
     countryCode?: string;
     password?: string;
     userType?: number;
