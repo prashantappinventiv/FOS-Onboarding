@@ -4,7 +4,7 @@
  * @author Fos Social Dev Team
  */
 
-import {  InvalidRoute } from './handlers.middleware';
+import { InvalidRoute } from './handlers.middleware';
 // import { VerifyUserSession, VerifyBasicSession } from './user.middleware';
 
 export default {

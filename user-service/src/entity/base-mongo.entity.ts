@@ -65,7 +65,6 @@ export default class BaseEntity {
             return Promise.reject(error);
         }
     }
-    
 
     async findOneAndUpdate(conditions: FilterQuery<AcceptAny>, update: UpdateQuery<AcceptAny>, options: QueryOptions) {
         try {
