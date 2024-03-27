@@ -1,0 +1,104 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "description": "New Project",
+        "title": "New Project",
+        "version": "1.0.0"
+    },
+    "components": {
+        "securitySchemes": {
+            "BasicAuth": {
+                "type": "http",
+                "scheme": "basic"
+            },
+            "BearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        },
+        "parameters": {
+            "APIKey": {
+                "name": "api-key",
+                "in": "header",
+                "description": "API Key",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "example": "xxxx"
+                }
+            },
+            "AppVersion": {
+                "name": "app-version",
+                "in": "header",
+                "description": "App Version",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "example": "xxxx"
+                }
+            },
+            "SkipAppVersion": {
+                "name": "skip-app-version",
+                "in": "header",
+                "description": "Skip App Version",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "example": "xxxx"
+                }
+            },
+            "DeviceType": {
+                "name": "device-type",
+                "in": "header",
+                "description": "Device Type",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "example": "xxxx"
+                }
+            },
+            "DeviceModel": {
+                "name": "device-model",
+                "in": "header",
+                "description": "Device Model",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "example": "xxxx"
+                }
+            },
+            "lang": {
+                "name": "lang",
+                "in": "header",
+                "description": "language",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "example": "xxxx"
+                }
+            }
+            
+        }
+    },
+
+    "paths": {
+        "/admin-service/v1/admin/home":{
+            "$ref" : "v1/home.doc.json#/paths/home"
+        }
+    },
+    "x-amazon-apigateway-documentation": {
+        "version": "1.0.0",
+        "createdDate": "2023-08-07T00:00:00Z",
+        "documentationParts": [{
+            "location": {
+                "type": "API"
+            },
+            "properties": {
+                "info": {
+                    "description": "New Project",
+                    "version": "1"
+                }
+            }
+        }]
+    }
+}

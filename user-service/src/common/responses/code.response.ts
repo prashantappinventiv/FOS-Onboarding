@@ -1,0 +1,33 @@
+/**
+ * @file code.response
+ * @description defines status codes for response class
+ * @author Fos Dev Team
+ */
+
+export default {
+    SUCCESS: 200,
+    BAD_REQUEST: 400,
+    NOT_FOUND: 404,
+    ACCOUNT_BLOCKED: 403,
+    ALREADY_EXISTS: 409,
+    CONFLICT: 409,
+    UNAUTHORIZED: 401,
+    FORBIDDEN: 403,
+    CREATED: 201,
+    UPDATED: 202,
+    NO_CONTENT: 204,
+    PAYMENY_REQUIRED: 402,
+    ACCESS_FORBIDDEN: 403,
+    URL_NOT_FOUND: 404,
+    METHOD_NOT_ALLOWED: 405,
+    NOT_ACCEPTABLE: 406,
+    UNREGISTERED: 410,
+    PAYLOAD_TOO_LARGE: 413,
+    CONCURRENT_LIMITED_EXCEEDED: 429,
+    EMAIL_NOT_VERIFIED: 431,
+    MOBILE_NUMBER_NOT_VERIFIED: 432,
+    INTERNAL_SERVER_ERROR: 500,
+    BAD_GATEWAY: 502,
+    SHUTDOWN: 503,
+    CHANNEL_CLOSE: 444,
+};
