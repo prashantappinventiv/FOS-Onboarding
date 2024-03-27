@@ -1,0 +1,60 @@
+{
+    "paths": {
+        "post-resend-otp":{
+            "post" : {
+                "tags" : [
+                    "Onboarding"
+                ],
+                "description" : "This api is used for resending otp",
+                "security" :[{
+                    "BasicAuth" : []
+                }],
+                "parameters": [{
+                    "$ref": "../swagger.json#/components/parameters/APIKey"
+                },
+                {
+                    "$ref": "../swagger.json#/components/parameters/lang"
+                }],
+                "requestBody" :{
+                    "description" : "Object",
+                    "required" : true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/resend-otp"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                },
+                "x-amazon-apigateway-integration": {
+                    "type": "HTTP",
+                    "httpMethod": "POST",
+                    "uri": "http://${stageVariables.ingresurl}/admin-service/v1/admin/resend-otp",
+                    "requestParameters": {
+                        "integration.request.header.api-key": "method.request.header.api-key",
+                        "integration.request.header.lang": "method.request.header.lang"
+                    },
+                    "responses": {
+                        "default": {
+                            "statusCode": "200"
+                        }
+                    }
+                },
+                "x-amazon-apigateway-auth": {
+                    "type": "NONE"
+                }
+
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+        }
+
+    }
+}
