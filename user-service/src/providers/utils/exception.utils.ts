@@ -22,13 +22,13 @@ export class ExceptionHandler {
 }
 
 export class CustomException extends ExceptionHandler {
-    constructor(message: ExceptionMessage, status?: HttpStatusMessage) {
+    constructor(message: ExceptionMessage, status?: number) {
         super();
         this.data = {
             message: message,
             type: message,
         };
-        this.status = status || HttpStatusMessage.BAD_REQUEST;
+        this.status = status ? status.toString() : '400';
         this.message = message;
     }
 }

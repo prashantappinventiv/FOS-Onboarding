@@ -22,26 +22,19 @@ const deviceDetails = new Schema(
 
 export const UserSchema: any = new Schema(
     {
-        zipcode: { type: String },
-        phoneNo: { type: String, trim: true },
+        // zipcode: { type: String },
+        // phoneNo: { type: String, trim: true },
         email: { type: String, required: true, trim: true },
-        countryCode: { type: String, trim: true },
+        // countryCode: { type: String, trim: true },
         password: { type: String },
         status: { type: Number, enum: ENUM_ARRAY.USER.STATUS, default: ENUM.USER.STATUS.ACTIVE },
-        username: { type: String, trim: true },
-        accountVerify: { type: Boolean, default: false },
-        phoneVerify: { type: Boolean, default: false },
-        deviceDetails: { type: deviceDetails, trim: true },
-        emailVerify: { type: Boolean, default: false },
-        otp: { type: String },
-        otpTimeStamp: { type: String },
-        otpAttempts: { type: Number, default: 0 },
-        profileImage: { type: String, default: '' },
-        isPublic: { type: Boolean, default: true },
+        name: { type: String, trim: true },
+        // deviceDetails: { type: deviceDetails, trim: true },
+        // profileImage: { type: String, default: '' },
         role: {
             type: String,
-            enum: ['Content Creator', 'Upcoming Content Creator', 'Viewer'],
-            required: false,
+            enum: [ENUM.ROLE.CONTENT, ENUM.ROLE.UPCOMING_CONTENT, ENUM.ROLE.VIEWER],
+            required: true,
         },
     },
     {
@@ -52,7 +45,7 @@ export const UserSchema: any = new Schema(
 );
 
 UserSchema.index({ name: 1 });
-UserSchema.index({ phoneNo: 1 });
-UserSchema.index({ email: 1, emailVerify: 1 });
+// UserSchema.index({ phoneNo: 1 });
+UserSchema.index({ email: 1 });
 
 export default model<IUser.User>(ENUM.COL.USER, UserSchema);

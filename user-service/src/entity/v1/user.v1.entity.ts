@@ -9,8 +9,7 @@ import BaseEntity from '../base-mongo.entity';
 import { ENUM } from '../../common/enum.common';
 import { AcceptAny } from '../../interfaces/types';
 import userModel from '../../models/user.model';
-import { user } from '../../builders/v1';
-
+import user_sessionsModel from '../../models/user_sessions.model';
 class UserEntity extends BaseEntity {
     constructor(model: Model<any>) {
         super(model);
@@ -56,7 +55,7 @@ class UserEntity extends BaseEntity {
             const query: any = {};
             query['$or'] = [
                 {
-                    $and: [{ email: params.email }, { emailVerify: true }],
+                    $and: [{ email: params.email }],
                 },
             ];
             const options = { lean: true };
@@ -65,6 +64,27 @@ class UserEntity extends BaseEntity {
             console.log('Error in findUserByEmailOrMobileNo userEntity', err);
             throw new Error(err);
         }
+    }
+
+    /**
+     * @description finds multiple records based on condition
+     * @param condition
+     * @param projection
+     */
+
+    async findMany<T>(condition: IApp.DataKeys, project: IApp.DataKeys = {}, options?: IApp.DataKeys, collation?: any): Promise<T[]> {
+        // condition.isDelete = false;
+        if (collation) return await this.model.find(condition, project, options).collation(collation).lean().exec();
+        return await this.model.find(condition, project, options).lean().exec();
+    }
+
+    /**
+     * @description To remove session by user id
+     * @param id
+     */
+
+    async removeSessionByUserId(id: any) {
+        return await user_sessionsModel.deleteMany({ userId: id });
     }
 }
 export const UserV1 = new UserEntity(userModel);

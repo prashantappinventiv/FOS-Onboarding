@@ -1,4 +1,3 @@
-import { config } from './src/providers/aws/secret-manager';
 (async () => {
     // await config.loadCreds();
     try {

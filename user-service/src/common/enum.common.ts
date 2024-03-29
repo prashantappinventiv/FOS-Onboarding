@@ -7,6 +7,11 @@ export const ENUM = {
         },
     },
 
+    ACCOUNT_TYPE: {
+        ADMIN: 1,
+        USER: 2,
+    },
+
     NOTIFICATION: {
         ENABLE: 0,
         DISABLE: 1,
@@ -16,6 +21,13 @@ export const ENUM = {
 
     COL: {
         USER: 'users',
+        USER_SESSION: 'user_session',
+    },
+
+    ROLE: {
+        CONTENT: 'Content Creator',
+        UPCOMING_CONTENT: 'Upcoming Content Creator',
+        VIEWER: 'Viewer',
     },
 };
 
