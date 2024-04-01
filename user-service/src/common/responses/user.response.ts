@@ -88,6 +88,7 @@ export const MSG: any = {
     BLOCKED_USER: 'Blocked User.', //common error for user block
     NOT_FOUND_CAPTION_USER: 'User you have included in the caption does not exist',
     DOES_NOT_EXIST_USER: 'User does not exist',
+    USER_NAME_ALREADY_REGISTER: 'User name already registered',
 };
 
 export default {

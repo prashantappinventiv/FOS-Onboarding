@@ -18,7 +18,7 @@ export const ENVIORNMENT = {
     STAGING: 'staging',
     QA: 'qa',
     DEFAULT: 'default',
-    LOCAL:  `local`,
+    LOCAL: `local`,
     ORASES: 'orases',
 };
 

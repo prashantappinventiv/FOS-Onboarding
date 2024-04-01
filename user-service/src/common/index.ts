@@ -5,3 +5,4 @@
  */
 
 export * from './enum.common';
+export * from './constant.common';

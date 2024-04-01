@@ -67,6 +67,26 @@ class UserEntity extends BaseEntity {
     }
 
     /**
+     * @description To find user by name
+     */
+
+    async findUserByName(params: IUser.Signup | any) {
+        try {
+            const query: any = {};
+            query['$or'] = [
+                {
+                    $and: [{ name: params.name }],
+                },
+            ];
+            const options = { lean: true };
+            return await this.findOne<IUser.User>(query, {}, options);
+        } catch (err: any) {
+            console.log('Error in findUserByEmailOrMobileNo userEntity', err);
+            throw new Error(err);
+        }
+    }
+
+    /**
      * @description finds multiple records based on condition
      * @param condition
      * @param projection

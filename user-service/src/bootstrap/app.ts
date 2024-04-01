@@ -7,7 +7,13 @@ import * as dotenv from 'dotenv';
 import { i18nLocale } from '../providers/locale/locale.service';
 import { InvalidRoute } from '../middlewares/handlers.middleware';
 import { mongoDOA } from '../providers/database/mongo.connection';
+import { redisDOA } from '../providers/database';
 dotenv.config();
+
+declare global {
+    var isRedisAvailable: boolean;
+}
+globalThis.isRedisAvailable = false;
 export class App {
     private app: Express;
     private port: number = config.get(Config.USER_APP_PORT);
@@ -26,6 +32,7 @@ export class App {
         this.loadGlobalMiddlewares();
         this.loadRoutes();
         mongoDOA.connectDatabase(this.uri);
+        redisDOA.onConnect();
         this.initializeServer();
     }
 

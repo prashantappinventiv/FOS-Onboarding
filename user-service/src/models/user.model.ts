@@ -28,7 +28,7 @@ export const UserSchema: any = new Schema(
         // countryCode: { type: String, trim: true },
         password: { type: String },
         status: { type: Number, enum: ENUM_ARRAY.USER.STATUS, default: ENUM.USER.STATUS.ACTIVE },
-        name: { type: String, trim: true },
+        name: { type: String, trim: true, unique: true },
         // deviceDetails: { type: deviceDetails, trim: true },
         // profileImage: { type: String, default: '' },
         role: {
@@ -44,7 +44,7 @@ export const UserSchema: any = new Schema(
     }
 );
 
-UserSchema.index({ name: 1 });
+UserSchema.index({ name: 1 }, { unique: true });
 // UserSchema.index({ phoneNo: 1 });
 UserSchema.index({ email: 1 });
 

@@ -1,4 +1,3 @@
-import { Utils } from 'sequelize';
 import builders from '../../builders';
 import { CONSTANT, ENVIORNMENT } from '../../common/constant.common';
 import { ENUM } from '../../common/enum.common';
@@ -14,7 +13,11 @@ import { Otp } from '../../models/otp.model';
 class UserServiceClass {
     async userSignup(payload: Signup) {
         try {
-            await UserV1.deleteDuplicateUser(payload);
+            // await UserV1.deleteDuplicateUser(payload);
+            const userNameExist: IUser.User = await UserV1.findUserByName(payload);
+            if (userNameExist) {
+                throw new CustomException(MSG.USER_NAME_ALREADY_REGISTER);
+            }
             const userExists: IUser.User = await UserV1.findUserByEmail(payload);
             const data = await builders.User.user.prepareSignUpData(payload);
             let userData: IUser.User;
