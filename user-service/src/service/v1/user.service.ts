@@ -23,6 +23,7 @@ class UserServiceClass {
             let userData: IUser.User;
             if (!userExists) {
                 userData = await UserV1.createUser(data);
+                await utils.logUserEvent(userData.email, ENUM.ACTION.SIGNUP, payload, 200, MSG.SIGNUP_SUCCESSFULLY);            
             } else if (userExists.status === ENUM.USER.STATUS.INACTIVE) {
                 throw new CustomException(MSG.ACCOUNT_BLOCKED, 400);
             } else if (userExists.email === payload.email) {
@@ -100,6 +101,7 @@ class UserServiceClass {
             } else {
                 const userData = await UserV1.findOne({ _id: payload.userId });
                 if (payload.type == ENUM.OTP_TYPE.LOGIN) {
+                    
                     const response = await builders.User.user.prepareSignInData(userData, payload);
                     await OtpV1.updateDocument({ otpType: payload.type }, { isVerified: true }, { new: true });
                     return response;
@@ -148,9 +150,11 @@ class UserServiceClass {
         const OtpDetails = await OtpV1.findOne({ otpType: ENUM.OTP_TYPE.FORGOT_PASSWORD });
         if (OtpDetails && OtpDetails.otpType == ENUM.OTP_TYPE.FORGOT_PASSWORD) {
             const otpData = await OtpV1.updateDocument<IUser.User>({ otpType: ENUM.OTP_TYPE.FORGOT_PASSWORD }, data, { new: true });
+            await utils.logUserEvent(userDetails.email, ENUM.ACTION.FORGOT_PASSWORD, payload, 200, MSG.OTP_SEND);
             return otpData;
         } else {
             const otpData = await OtpV1.saveData(data);
+            await utils.logUserEvent(userDetails.email, ENUM.ACTION.FORGOT_PASSWORD, payload, 200, MSG.OTP_SEND);
             return otpData;
         }
     }
@@ -176,6 +180,7 @@ class UserServiceClass {
         const updateUserDetails = await UserV1.findOneAndUpdate({ email: payload.email }, { password: data }, { new: true });
 
         if (updateUserDetails) {
+            await utils.logUserEvent(userDetails.email, ENUM.ACTION.RESET_PASSWORD, payload, 200, MSG.RESET_PASSWORD);
             return updateUserDetails;
         } else {
             throw new CustomException(ExceptionMessage.SOMETHING_WENT_WRONG);

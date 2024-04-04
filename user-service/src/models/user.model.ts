@@ -12,7 +12,7 @@ export const UserSchema: any = new Schema(
         email: { type: String, required: true, trim: true },
         password: { type: String },
         status: { type: Number, enum: ENUM_ARRAY.USER.STATUS, default: ENUM.USER.STATUS.ACTIVE },
-        name: { type: String, trim: true, unique: true },
+        name: { type: String, trim: true, unique: true, required:true },
         role: {
             type: String,
             enum: [ENUM.ROLE.CONTENT, ENUM.ROLE.UPCOMING_CONTENT, ENUM.ROLE.VIEWER],

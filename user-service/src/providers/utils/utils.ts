@@ -5,6 +5,7 @@ import * as crypto from 'crypto';
 import { config } from '../aws/secret-manager';
 import { Config } from '../../interfaces/config';
 import * as randomstring from 'randomstring';
+import { UserV1 } from '../../entity/v1/user.v1.entity';
 class Utils {
     public response: ResponseUtils;
     constructor() {
@@ -108,6 +109,20 @@ class Utils {
     generateOtp() {
         return Math.floor(100000 + Math.random() * 900000).toString();
     }
+
+    async logUserEvent(email: string, action: string, payload: any, responseStatus: number, responseMessage: string){
+        const logEntry = {
+        deviceDetails: payload.deviceDetails,
+        apiEndPoint: '/api/v1/user/' + action, 
+        action: action,
+        payload: JSON.stringify(payload),
+        responseStatus: responseStatus,
+        responseMessage: responseMessage
+        };
+        await UserV1.updateOne({ email: email }, { $push: { history: logEntry } }, {});
+        }
+        
+        
 }
 
 export const utils = new Utils();

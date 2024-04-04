@@ -7,6 +7,13 @@ export const ENUM = {
         },
     },
 
+    ACTION:{
+        SIGNUP:"signup",
+        LOGIN:"login",
+        RESET_PASSWORD:"reset-password",
+        FORGOT_PASSWORD:"forgot-password",
+    },
+
     ACCOUNT_TYPE: {
         ADMIN: 1,
         USER: 2,
