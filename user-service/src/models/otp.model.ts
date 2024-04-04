@@ -1,18 +1,25 @@
-import mongoose, { Schema } from 'mongoose';
-import { ENUM } from '../common/enum.common';
+/**
+ * @name properties.model
+ * @description defines schema for property model
+ * @author FOS - Socail Dev Team
+ */
 
-const OtpSchema = new mongoose.Schema(
+import { Schema, model } from 'mongoose';
+import { ENUM } from '../common';
+
+const otpSchema = new Schema(
     {
-        otp: { type: String, required: true },
-        expiary: { type: Schema.Types.Date, required: true },
-        isVerified: { type: Boolean, required: true, default: false },
-        user: { type: mongoose.Schema.Types.ObjectId, ref: ENUM.COL.USER, required: true },
+        otp: { type: Schema.Types.String, default: 0 },
+        otpType: { type: String, enum: [ENUM.OTP_TYPE.LOGIN, ENUM.OTP_TYPE.FORGOT_PASSWORD], default: ENUM.OTP_TYPE.LOGIN, required: true },
+        isVerified: { type: Schema.Types.Boolean, default: false },
+        userId: { type: Schema.Types.ObjectId, ref: ENUM.COL.USER, required: true },
+        otpTimeStamp: { type: Date, default: Date.now() },
     },
     {
+        versionKey: false,
+        collection: ENUM.COL.OTP,
         timestamps: true,
     }
 );
 
-const Otp = mongoose.model('Otp', OtpSchema);
-
-export { Otp };
+export default model<IOtp.OtpModel>(ENUM.COL.OTP, otpSchema);

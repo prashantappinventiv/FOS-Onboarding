@@ -14,7 +14,7 @@ class RedisStorage {
      */
     private getConfiguration(): RedisOptions {
         const creds: RedisOptions = {
-            db: <number>config.get(Config.REDIS_DB) || 0,
+            db: <number>config.get(Config.REDIS_DB),
             host: <string>config.get(Config.REDIS_HOST),
             port: <number>config.get(Config.REDIS_PORT),
         };
@@ -234,4 +234,4 @@ class RedisStorage {
     }
 }
 
-export const redis = new RedisStorage();
+export const redisDOA = new RedisStorage();

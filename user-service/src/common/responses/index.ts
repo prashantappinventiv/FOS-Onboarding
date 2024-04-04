@@ -1,7 +1,7 @@
 /**
  * @file common/responses
  * @description exposes all the responses objects
- * @author Five Star Dev Team
+ * @author Fos Social Dev Team
  */
 
 import USER from './user.response';

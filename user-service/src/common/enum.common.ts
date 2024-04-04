@@ -12,16 +12,22 @@ export const ENUM = {
         USER: 2,
     },
 
+    OTP_TYPE: {
+        LOGIN: 1,
+        FORGOT_PASSWORD: 2,
+    },
+
     NOTIFICATION: {
         ENABLE: 0,
         DISABLE: 1,
     },
 
-    PLATFORM: { ANDROID: 0, IOS: 1, WEB: 2, ALL: 4 },
+    PLATFORM: { ANDROID: 0, IOS: 1 },
 
     COL: {
         USER: 'users',
         USER_SESSION: 'user_session',
+        OTP: 'otp',
     },
 
     ROLE: {

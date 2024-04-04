@@ -1,13 +1,12 @@
 /**
  * @file user.routes
  * @description defines routing for user routes
- * @author Five Star Dev Team
+ * @author Fos Social Dev Team
  */
 
-import { Joi, celebrate } from 'celebrate';
+import { Joi } from 'celebrate';
 import { Router, Request, Response, NextFunction } from 'express';
 import BaseRoute from '../../base.routes';
-// import { VALIDATION } from '@common';
 import { UserController } from '../../../controllers/controller';
 import { validate } from '../../../middlewares/validation/validation';
 import { VALIDATION } from '../../../middlewares/validation/joi.validation';
@@ -43,6 +42,14 @@ class V1UserRouteClass extends BaseRoute {
 
         this.router.post('/otp/verify', (req: Request, res: Response, next: NextFunction) => {
             UserController.verifyOtpController(req, res, next);
+        });
+
+        this.router.post('/forgot-password', (req: Request, res: Response, next: NextFunction) => {
+            UserController.forgotPasswordController(req, res, next);
+        });
+
+        this.router.put('/reset-password', (req: Request, res: Response, next: NextFunction) => {
+            UserController.resetPasswordController(req, res, next);
         });
     }
 }

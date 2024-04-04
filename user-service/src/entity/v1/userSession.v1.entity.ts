@@ -2,12 +2,13 @@
 /**
  * @file userSession.v1.entity
  * @description defines v1 user session entity methods
- * @author Five Star Dev Team
+ * @author Fos Social Dev Team
  */
 
-import { Model } from 'mongoose';
-import BaseEntity from '../../entity/base-mongo.entity';
-import sessionModel from '../../models/user_sessions.model';
+import { Model, model } from 'mongoose';
+import BaseEntity from '../base-mongo.entity';
+import { IUserSession, UserSessionSchema } from '../../models/user_sessions.model';
+import { ENUM } from '../../common';
 class UserSessionEntity extends BaseEntity {
     constructor(model: Model<any>) {
         super(model);
@@ -28,4 +29,7 @@ class UserSessionEntity extends BaseEntity {
         }
     }
 }
-export const sessionV1 = new UserSessionEntity(sessionModel);
+
+const UserSessionModel: Model<IUserSession> = model<IUserSession>(ENUM.COL.USER_SESSION, UserSessionSchema);
+
+export const sessionV1 = new UserSessionEntity(UserSessionModel);

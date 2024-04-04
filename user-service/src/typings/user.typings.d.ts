@@ -29,7 +29,21 @@ export interface UserSession extends Document {
 
 export interface VerifyOtp {
     userId: string;
+    isActive?: number;
     otp: string;
+    type: number;
+    deviceDetails: {
+        ip: string;
+        deviceId: string;
+        deviceType: number;
+        deviceToken: string;
+        os: string;
+    };
+}
+export interface resetPassword {
+    resetPasswordToken: string;
+    password: string;
+    email: string;
 }
 
 export interface User extends Document {

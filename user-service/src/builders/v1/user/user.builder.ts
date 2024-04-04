@@ -6,7 +6,8 @@
 
 import { CONSTANT } from '../../../common/constant.common';
 import { ENUM } from '../../../common/enum.common';
-import { sessionV1 } from '../../../controllers/v1/userSession.v1.entity';
+import { sessionV1 } from '../../../entity/v1/userSession.v1.entity';
+import { IUserSession } from '../../../models/user_sessions.model';
 import { Auth } from '../../../service/auth.service';
 export const prepareSignUpData = async (payload: IUser.Signup) => {
     try {
@@ -24,12 +25,20 @@ export const prepareSignUpData = async (payload: IUser.Signup) => {
  * @author Fos Social Dev Team
  */
 
-export const prepareSignInData = async (userData: any) => {
+export const prepareSignInData = async (userData: any, payload: any) => {
     try {
         // UserV1.removeSessionByUserId(userData._id);
-        const createUserSession: any = await sessionV1.createSession({
+        const deviceDetails = payload.deviceDetails;
+        const createUserSession: IUserSession = await sessionV1.createSession({
             userId: userData._id,
             status: ENUM.USER.STATUS.ACTIVE,
+            deviceDetails: {
+                ip: deviceDetails?.ip,
+                deviceId: deviceDetails?.deviceId,
+                deviceType: deviceDetails?.deviceType || 1,
+                deviceToken: deviceDetails?.deviceToken,
+                os: deviceDetails?.os,
+            },
         });
 
         const buildTokenData = {
@@ -51,5 +60,19 @@ export const prepareSignInData = async (userData: any) => {
     } catch (error) {
         console.log('error--<prepareSignUpData>', error);
         return error;
+    }
+};
+
+export const resetPasswordTokenData = async (userData: any) => {
+    try {
+        const buildTokenData = {
+            userId: userData.userId,
+            accountType: ENUM.ACCOUNT_TYPE.USER,
+        };
+        const genToken = Auth.generateUserToken({ type: 'FORGOT_PASSWORD', object: buildTokenData });
+        console.log("------------------->",genToken)
+        return genToken;
+    } catch (error) {
+        console.log('error--<prepareForgotPassword>', error);
     }
 };

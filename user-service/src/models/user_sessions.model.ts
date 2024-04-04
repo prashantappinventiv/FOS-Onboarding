@@ -1,30 +1,31 @@
-/**
- * @file user_sessions.model
- * @description defines schema for user session model
- * @author Five Star Dev Team
- */
-
-import { Schema, model, SchemaTypes } from 'mongoose';
+import { Schema, Document } from 'mongoose';
 import { ENUM, ENUM_ARRAY } from '../common/enum.common';
 
-const deviceDetails = new Schema(
+export interface IUserSession extends Document {
+    userId: string;
+    platform?: string;
+    isActive?: number;
+    deviceDetails?: {
+        ip: string;
+        deviceId: string;
+        deviceType: number;
+        deviceToken?: string;
+        os?: string;
+    };
+}
+
+export const UserSessionSchema = new Schema(
     {
-        deviceId: { type: SchemaTypes.String, trim: true },
-        deviceType: { type: Number, enum: ENUM_ARRAY.PLATFORM, required: true },
-        deviceToken: { type: SchemaTypes.String, trim: true },
-        model: { type: SchemaTypes.String, trim: true },
-    },
-    {
-        _id: false,
-        timestamps: false,
-    }
-);
-const userSessionSchema = new Schema(
-    {
-        userId: { type: SchemaTypes.ObjectId, required: true, index: true, ref: ENUM.COL.USER },
-        lastLogin: { type: Number },
-        deviceDetails: { type: deviceDetails, trim: true },
-        isActive: { type: SchemaTypes.Boolean, default: true },
+        userId: { type: Schema.Types.ObjectId, required: true, index: true, ref: ENUM.COL.USER },
+        platform: { type: Schema.Types.Number, default: ENUM.PLATFORM.ANDROID },
+        isActive: { type: Schema.Types.Number, default: ENUM.USER.STATUS.ACTIVE },
+        deviceDetails: {
+            ip: { type: Schema.Types.String, trim: true },
+            deviceId: { type: Schema.Types.String, trim: true },
+            deviceType: { type: Schema.Types.Number, required: true },
+            deviceToken: { type: Schema.Types.String, trim: true },
+            os: { type: Schema.Types.String, trim: true },
+        },
     },
     {
         versionKey: false,
@@ -32,6 +33,3 @@ const userSessionSchema = new Schema(
         collection: ENUM.COL.USER_SESSION,
     }
 );
-
-userSessionSchema.index({ '$**': 1 });
-export default model<IUser.UserSession>(ENUM.COL.USER_SESSION, userSessionSchema);
