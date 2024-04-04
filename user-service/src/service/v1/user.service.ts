@@ -45,7 +45,7 @@ class UserServiceClass {
             if (payload.name) {
                 delete queryObj.email;
                 queryObj['name'] = payload.name;
-            }
+            }   
             userData = await UserV1.findMany(queryObj, {}, { sort: { updatedAt: -1 } });
             userData = userData.length ? userData[0] : undefined;
             if (!userData) throw new CustomException(ExceptionMessage.USER_NOT_FOUND, 404);

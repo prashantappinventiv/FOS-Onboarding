@@ -4,6 +4,7 @@ export const ENUM = {
             ACTIVE: 1,
             INACTIVE: 2,
             DELETED: 3,
+            DEFAULT: 4,
         },
     },
 
@@ -28,6 +29,12 @@ export const ENUM = {
         CONTENT: 'Content Creator',
         UPCOMING_CONTENT: 'Upcoming Content Creator',
         VIEWER: 'Viewer',
+    },
+    
+    ACTION: {
+        RESET: 'Reset Password',
+        CHANGE: 'Change Password',
+        FORGET: 'Forget Password'
     },
 };
 

@@ -1,0 +1,22 @@
+syntax = 'proto3';
+
+package userPackage; 
+
+service User {
+    rpc testGrpc(testGrpcPayload) returns (Response) {}
+}
+
+message testGrpcPayload  {
+    int32 num = 1;
+    string string = 2; 
+} 
+
+message Empty {}
+
+message Response { 
+    int32 code = 1;
+    string status = 2;
+    int64 timestamp = 3;
+    string data = 4;
+    string error = 5;
+}
