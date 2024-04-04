@@ -32,9 +32,11 @@ export const ENUM = {
     },
     
     ACTION: {
+        SIGNUP: 'Signup Event',
+        LOGIN: 'Login Event',
         RESET: 'Reset Password',
         CHANGE: 'Change Password',
-        FORGET: 'Forget Password'
+        FORGET: 'Forget Password',
     },
 };
 

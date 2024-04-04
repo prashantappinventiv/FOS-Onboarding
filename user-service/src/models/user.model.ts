@@ -51,7 +51,7 @@ export const UserSchema: any = new Schema(
             enum: [ENUM.ROLE.CONTENT, ENUM.ROLE.UPCOMING_CONTENT, ENUM.ROLE.VIEWER],
             required: true,
         },
-        updateHistory: [userHistorySchema]
+        history: [userHistorySchema]
     },
     {
         versionKey: false,
