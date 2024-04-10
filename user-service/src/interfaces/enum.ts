@@ -110,6 +110,7 @@ export enum ENV {
     LOCAL = 'local',
 }
 
+
 export enum MongoChangeStreamOperationType {
     INSERT = 'insert',
     DELETE = 'delete',
@@ -147,12 +148,15 @@ export enum ExceptionMessage {
     SOMETHING_WENT_WRONG = 'SOMETHING_WENT_WRONG',
     USER_NOT_EXISTS = 'USER_NOT_EXISTS',
     USER_ALREADY_EXIST = 'USER_ALREADY_EXIST',
+    EMAIL_NOT_REGISTERED = 'Email is not registered',
     AUTH_INVALID_TOKEN = 'AUTH_INVALID_TOKEN',
     AUTH_INVALID_STRATEGY = 'AUTH_INVALID_STRATEGY',
     OTP_EXPIRED = 'OTP_EXPIRED',
     SESSION_NOT_FOUND = 'SESSION_NOT_FOUND',
     INVALID_REQUEST = 'INVALID_REQUEST',
     INCORRECT_OTP = 'INCORRECT_OTP',
+    INCORRECT_PASSWORD = `Incorrect login or password.`,
+    ACCOUNT_BLOCKED = 'Your account has been temporarily blocked.Please contact with admin support.',
     INVALID_APIKEY = 'INVALID_APIKEY',
     INVALID_OTP = 'INVALID_OTP',
     INVALID_PASSWORD = 'INVALID_PASSWORD',
@@ -160,6 +164,7 @@ export enum ExceptionMessage {
     MOVED_PERMANENTLY = 'MOVED_PERMANENTLY',
     USER_BLOCKED = 'USER_BLOCKED',
     USER_NOT_FOUND = 'USER_NOT_FOUND',
+    USER_NOT_REGISTER = 'USER_NOT_REGISTER',
     DETAIL_NOT_FOUND = 'DETAIL_NOT_FOUND',
     INVALID_ROUTE = 'INVALID_ROUTE',
     MISSING_PERMISSION_TOKEN = 'MISSING_PERMISSION_TOKEN',

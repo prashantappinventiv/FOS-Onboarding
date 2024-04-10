@@ -1,7 +1,6 @@
 import { Options, PackageDefinition, loadSync } from '@grpc/proto-loader';
 import { Server, GrpcObject, loadPackageDefinition, ServerCredentials } from '@grpc/grpc-js';
 import path from 'path';
-import { routes } from './../routes/routes';
 import { GRPC } from './../common/constants';
 import { config } from '../providers/aws/secret-manager';
 import { Config } from '../interfaces/config';
@@ -45,7 +44,7 @@ export class Grpc {
      * @description Expose User services
      */
     private loadServiceDefinition(): void {
-        routes.loadAllServices(this.grpcServer, this.userPackage);
+        // routes.loadAllServices(this.grpcServer, this.userPackage);
     }
 
     /**

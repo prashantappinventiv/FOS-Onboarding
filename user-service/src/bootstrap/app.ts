@@ -1,12 +1,14 @@
 import express, { Express } from 'express';
 import cors from 'cors';
-import { routes } from '../routes/routes';
 import { config } from '../providers/aws/secret-manager';
 import { Config } from '../interfaces/config';
+import routes from '../routes/index';
 import * as dotenv from 'dotenv';
 import { i18nLocale } from '../providers/locale/locale.service';
 import { InvalidRoute } from '../middlewares/handlers.middleware';
+
 dotenv.config();
+
 export class App {
     private app: Express;
     private port: number = config.get(Config.USER_APP_PORT);
@@ -39,7 +41,8 @@ export class App {
      * @description Load All Routes
      */
     private loadRoutes() {
-        this.app.use(this.contextPath, routes.loadAllRoutes());
+        this.app.use(routes.path, routes.instance);
+        // this.app.use(this.contextPath, routes.loadAllRoutes());
         this.app.use(InvalidRoute);
     }
 

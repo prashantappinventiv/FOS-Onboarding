@@ -1,7 +1,7 @@
 /**
  * @file user.v1.entity
  * @description defines v1 user entity methods
- * @author Five Star Dev Team
+ * @author Fos Social Dev Team
  */
 
 import { Model } from 'mongoose';
@@ -9,7 +9,6 @@ import BaseEntity from '../base-mongo.entity';
 import { ENUM } from '../../common/enum.common';
 import { AcceptAny } from '../../interfaces/types';
 import userModel from '../../models/user.model';
-
 class UserEntity extends BaseEntity {
     constructor(model: Model<any>) {
         super(model);
@@ -21,6 +20,7 @@ class UserEntity extends BaseEntity {
      */
     async createUser(payload: any): Promise<IUser.User> {
         const userData = await new this.model(payload).save();
+        console.log('------______>', userData);
         return userData.toObject();
     }
 
@@ -49,15 +49,29 @@ class UserEntity extends BaseEntity {
      * @description To find user by email or mobile number
      */
 
-    async findUserByEmailOrMobileNo(params: IUser.Signup | any) {
+    async findUserByEmail(params: IUser.Signup | any) {
+        try {
+            const query: any = {
+                email: params.email,
+            };
+            const options = { lean: true };
+            return await this.findOne<IUser.User>(query, {}, options);
+        } catch (err: any) {
+            console.log('Error in findUserByEmailOrMobileNo userEntity', err);
+            throw new Error(err);
+        }
+    }
+
+    /**
+     * @description To find user by name
+     */
+
+    async findUserByName(params: IUser.Signup | any) {
         try {
             const query: any = {};
             query['$or'] = [
                 {
-                    $and: [{ email: params.email }, { emailVerify: true }],
-                },
-                {
-                    $and: [{ phoneNo: params.phoneNo }, { phoneVerify: true }],
+                    $and: [{ name: params.name }],
                 },
             ];
             const options = { lean: true };
@@ -66,6 +80,39 @@ class UserEntity extends BaseEntity {
             console.log('Error in findUserByEmailOrMobileNo userEntity', err);
             throw new Error(err);
         }
+    }
+
+    /**
+     * @description finds multiple records based on condition
+     * @param condition
+     * @param projection
+     */
+
+    async findMany<T>(condition: IApp.DataKeys, project: IApp.DataKeys = {}, options?: IApp.DataKeys, collation?: any): Promise<T[]> {
+        // condition.isDelete = false;
+        if (collation) return await this.model.find(condition, project, options).collation(collation).lean().exec();
+        return await this.model.find(condition, project, options).lean().exec();
+    }
+
+    /**
+     * @description To remove session by user id
+     * @param id
+     */
+
+    async removeSessionByUserId(id: any) {
+        // return await UserSessionSchema.deleteMany({ userId: id });
+    }
+
+    /**
+     * @description updates document
+     * @param condition
+     * @param payload
+     * @param options
+     */
+
+    async updateDocument<T>(condition: IApp.DataKeys, payload: IApp.DataKeys, options: any = {}): Promise<T> {
+        const data: any = await this.model.findOneAndUpdate(condition, { $set: payload }, options).lean().exec();
+        return data;
     }
 }
 export const UserV1 = new UserEntity(userModel);

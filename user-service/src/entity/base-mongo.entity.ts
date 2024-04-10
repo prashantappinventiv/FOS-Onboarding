@@ -68,11 +68,6 @@ export default class BaseEntity {
 
     async findOneAndUpdate(conditions: FilterQuery<AcceptAny>, update: UpdateQuery<AcceptAny>, options: QueryOptions) {
         try {
-            if (options != undefined) {
-                options['writeConcern'] = { w: 'majority', wtimeout: 5000 };
-            } else {
-                options = { writeConcern: { w: 'majority', wtimeout: 5000 } };
-            }
             return await this.model.findOneAndUpdate(conditions, update, options).exec();
         } catch (error) {
             return Promise.reject(error);
@@ -134,6 +129,26 @@ export default class BaseEntity {
             return await this.model.deleteMany(query);
         } catch (error) {
             return Promise.reject(error);
+        }
+    }
+
+    /**
+     * @description updates and sets the user fields record with the payload fields
+     * @param condition
+     * @param payload
+     * @param options
+     */
+
+    async updateEntity<T>(condition: IApp.DataKeys, payload: IApp.DataKeys, options: any = {}): Promise<IApp.Entity<T>> {
+        condition.isDelete = false;
+        if (options.multi) {
+            await this.model.updateMany(condition, { $set: payload }, options).exec();
+            return { type: 'MULTI' };
+        } else {
+            if (typeof options.new === 'undefined') options.new = true;
+            const updatedData: any = await this.model.findOneAndUpdate(condition, { $set: payload }, options).lean().exec();
+            if (updatedData) return { type: 'SINGLE', data: updatedData };
+            else return { type: 'SINGLE' };
         }
     }
 

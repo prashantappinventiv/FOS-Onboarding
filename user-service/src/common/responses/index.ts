@@ -1,7 +1,7 @@
 /**
  * @file common/responses
  * @description exposes all the responses objects
- * @author Five Star Dev Team
+ * @author Fos Social Dev Team
  */
 
 import USER from './user.response';
@@ -10,11 +10,6 @@ export const SUCCESS = {
         httpCode: 200,
         statusCode: 200,
         message: 'Success',
-    },
-    SPORT_LIST: {
-        httpCode: 200,
-        statusCode: 200,
-        message: 'Get allSport list successfully',
     },
     ACTIVITY_LIST: {
         httpCode: 200,
@@ -39,7 +34,7 @@ export const commonErrorHandler = (error: any, status = 400) => {
             httpCode: status,
             message: error,
             statusCode: status,
-            type: 'INTERNAL_SERVER_ERROR',
+            // type: 'INTERNAL_SERVER_ERROR',
         };
     }
 
@@ -48,7 +43,7 @@ export const commonErrorHandler = (error: any, status = 400) => {
             httpCode: error.status,
             message: error.body || error.message,
             statusCode: error.status,
-            type: 'INTERNAL_SERVER_ERROR',
+            // type: 'INTERNAL_SERVER_ERROR',
         };
     }
 
@@ -72,7 +67,7 @@ export const commonErrorHandler = (error: any, status = 400) => {
         httpCode: error.status || status,
         message: body || 'Something went wrong, please contact administrator.',
         statusCode: error.status || status,
-        type: error.name || 'INTERNAL_SERVER_ERROR',
+        // type: error.name || 'INTERNAL_SERVER_ERROR',
     };
 };
 

@@ -9,7 +9,7 @@ import HTTP from './code.response';
 export const MSG: any = {
     SUCCESS: 'Success',
     USER_DETAILS: 'User Details get successfully',
-    SIGNUP_SUCCESSFULLY: 'Signup successfully, One time passcode sent to your phone No .',
+    SIGNUP_SUCCESSFULLY: 'Signup successfully .',
     EMAIL_ALREADY_EXISTS: 'This email is already registered',
     PHONE_NO_ALREADY_EXISTS: 'This phone no is already registered',
     OTP_INVALID: 'Please enter valid OTP.',
@@ -36,6 +36,7 @@ export const MSG: any = {
     OLD_AND_NEW_PASSWORD_SAME: 'The new password must be different from your current password.',
     INCORRECT_OLD_PASSWORD: 'Incorrect old password',
     INVALID_RESET_TOKEN: 'Token has been Expired',
+    EMAIL_VERIFIED: 'Email Verified Successfully',
     PASSWORD_CHANGED_SUCCESSFULLY: 'Your password has been updated successfully!',
     TOKEN_EXPIRED: 'This link has been expired',
     VALID_RESET_TOKEN: 'Valid reset token',
@@ -88,6 +89,7 @@ export const MSG: any = {
     BLOCKED_USER: 'Blocked User.', //common error for user block
     NOT_FOUND_CAPTION_USER: 'User you have included in the caption does not exist',
     DOES_NOT_EXIST_USER: 'User does not exist',
+    USER_NAME_ALREADY_REGISTER: 'User name already registered',
 };
 
 export default {
@@ -107,6 +109,7 @@ export default {
         type: 'SIGNUP_SUCCESSFULLY',
     },
     ACCOUNT_BLOCKED: { httpCode: HTTP.ACCOUNT_BLOCKED, statusCode: 403, message: MSG.ACCOUNT_BLOCKED, type: 'ACCOUNT_BLOCKED' },
+    EMAIL_VERIFIED: { httpCode: HTTP.SUCCESS, statusCode: 200, message: MSG.EMAIL_VERIFIED, type: 'EMAIL_VERIFIED' },
     ACCOUNT_DELETED: { httpCode: HTTP.BAD_REQUEST, statusCode: 400, message: MSG.ACCOUNT_DELETED, type: 'ACCOUNT_DELETED' },
     INCORRECT_OLD_PASSWORD: {
         httpCode: HTTP.BAD_REQUEST,
