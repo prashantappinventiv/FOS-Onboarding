@@ -36,6 +36,7 @@ export const MSG: any = {
     OLD_AND_NEW_PASSWORD_SAME: 'The new password must be different from your current password.',
     INCORRECT_OLD_PASSWORD: 'Incorrect old password',
     INVALID_RESET_TOKEN: 'Token has been Expired',
+    EMAIL_VERIFIED: 'Email Verified Successfully',
     PASSWORD_CHANGED_SUCCESSFULLY: 'Your password has been updated successfully!',
     TOKEN_EXPIRED: 'This link has been expired',
     VALID_RESET_TOKEN: 'Valid reset token',
@@ -108,6 +109,7 @@ export default {
         type: 'SIGNUP_SUCCESSFULLY',
     },
     ACCOUNT_BLOCKED: { httpCode: HTTP.ACCOUNT_BLOCKED, statusCode: 403, message: MSG.ACCOUNT_BLOCKED, type: 'ACCOUNT_BLOCKED' },
+    EMAIL_VERIFIED: { httpCode: HTTP.SUCCESS, statusCode: 200, message: MSG.EMAIL_VERIFIED, type: 'EMAIL_VERIFIED' },
     ACCOUNT_DELETED: { httpCode: HTTP.BAD_REQUEST, statusCode: 400, message: MSG.ACCOUNT_DELETED, type: 'ACCOUNT_DELETED' },
     INCORRECT_OLD_PASSWORD: {
         httpCode: HTTP.BAD_REQUEST,

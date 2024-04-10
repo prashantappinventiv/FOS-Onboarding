@@ -40,6 +40,10 @@ export interface VerifyOtp {
         os: string;
     };
 }
+
+export interface VerifyEmail {
+    email: string;
+}
 export interface resetPassword {
     resetPasswordToken: string;
     password: string;

@@ -15,6 +15,7 @@ export const ENUM = {
     OTP_TYPE: {
         LOGIN: 1,
         FORGOT_PASSWORD: 2,
+        VERIFIED_EMAIL: 3,
     },
 
     NOTIFICATION: {

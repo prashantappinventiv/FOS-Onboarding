@@ -11,7 +11,7 @@ import { utils } from '../../providers/utils/utils';
 import otpModel from '../../models/otp.model';
 import { OtpV1 } from '../../entity/v1/otp.v1.entity';
 
-class UserServiceClass {
+class UserServices {
     async userSignup(payload: Signup) {
         try {
             const userNameExist: IUser.User = await UserV1.findUserByName(payload);
@@ -128,16 +128,27 @@ class UserServiceClass {
                     const response = await builders.User.user.resetPasswordTokenData(payload);
                     await OtpV1.updateDocument({ otpType: payload.type }, { isVerified: true }, { new: true });
                     return response;
+                } else if (payload.type == ENUM.OTP_TYPE.VERIFIED_EMAIL) {
+                    await OtpV1.updateDocument({ otpType: payload.type }, { isVerified: true }, { new: true });
+                    return MSG.SUCCESS;
                 }
             }
         }
     }
 
     async forgotPassworService(payload: User) {
-        const userDetails = await UserV1.findUserByEmail({ email: payload.email });
-        if (!userDetails) throw new CustomException(ExceptionMessage.EMAIL_NOT_REGISTERED, 400);
-        if (userDetails.status === ENUM.USER.STATUS.DELETED || userDetails.status === ENUM.USER.STATUS.INACTIVE)
+        let userDetails;
+        if (payload.name) {
+            userDetails = await UserV1.findOne({ name: payload.name });
+            if (!userDetails) throw new CustomException(ExceptionMessage.USER_NOT_EXISTS);
+        } else if (payload.email) {
+            userDetails = await UserV1.findUserByEmail({ email: payload.email });
+            if (!userDetails) throw new CustomException(ExceptionMessage.EMAIL_NOT_REGISTERED, 400);
+        }
+
+        if (userDetails.status === ENUM.USER.STATUS.DELETED || userDetails.status === ENUM.USER.STATUS.INACTIVE) {
             throw new CustomException(ExceptionMessage.ACCOUNT_BLOCKED, 403);
+        }
         const data = {
             otp: utils.generateOtp(),
             otpType: ENUM.OTP_TYPE.FORGOT_PASSWORD,
@@ -181,5 +192,30 @@ class UserServiceClass {
             throw new CustomException(ExceptionMessage.SOMETHING_WENT_WRONG);
         }
     }
+
+    async VerifyEmailService(payload: IUser.VerifyEmail) {
+        const userDetails = await UserV1.findUserByEmail({ email: payload.email });
+        if (!userDetails) throw new CustomException(ExceptionMessage.EMAIL_NOT_EXISTS);
+        if (userDetails.status === ENUM.USER.STATUS.DELETED || userDetails.status === ENUM.USER.STATUS.INACTIVE) {
+            throw new CustomException(ExceptionMessage.ACCOUNT_BLOCKED, 403);
+        }
+
+        const data = {
+            otp: utils.generateOtp(),
+            otpType: ENUM.OTP_TYPE.VERIFIED_EMAIL,
+            isVerified: false,
+            userId: userDetails._id,
+            otpTimeStamp: +new Date() + DATABASE_CONST.TTL.OTP_EXPIRE_TIME,
+        };
+        const OtpDetails = await OtpV1.findOne({ otpType: ENUM.OTP_TYPE.VERIFIED_EMAIL });
+        if (OtpDetails && OtpDetails.otpType == ENUM.OTP_TYPE.VERIFIED_EMAIL) {
+            const otpData = await OtpV1.updateDocument<IUser.User>({ otpType: ENUM.OTP_TYPE.VERIFIED_EMAIL }, data, { new: true });
+            await UserV1.updateDocument({ _id: userDetails._id }, { isVerified: true }, { new: true });
+            return otpData;
+        } else {
+            const otpData = await OtpV1.saveData(data);
+            return otpData;
+        }
+    }
 }
-export const UserService = new UserServiceClass();
+export const UserService = new UserServices();

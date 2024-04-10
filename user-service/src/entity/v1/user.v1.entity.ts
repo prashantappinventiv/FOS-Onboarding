@@ -102,5 +102,17 @@ class UserEntity extends BaseEntity {
     async removeSessionByUserId(id: any) {
         // return await UserSessionSchema.deleteMany({ userId: id });
     }
+
+    /**
+     * @description updates document
+     * @param condition
+     * @param payload
+     * @param options
+     */
+
+    async updateDocument<T>(condition: IApp.DataKeys, payload: IApp.DataKeys, options: any = {}): Promise<T> {
+        const data: any = await this.model.findOneAndUpdate(condition, { $set: payload }, options).lean().exec();
+        return data;
+    }
 }
 export const UserV1 = new UserEntity(userModel);

@@ -9,15 +9,21 @@ import { ENUM, ENUM_ARRAY } from '../common';
 
 export const UserSchema: any = new Schema(
     {
-        email: { type: String, required: true, trim: true },
-        password: { type: String },
+        email: { type: String, required: true, trim: true, unique: true },
+        password: { type: String, trim: true, required: true },
         status: { type: Number, enum: ENUM_ARRAY.USER.STATUS, default: ENUM.USER.STATUS.ACTIVE },
-        name: { type: String, trim: true, unique: true },
+        user_name: { type: String, trim: true, unique: true },
+        name: {
+            firstName: { type: String, trim: true, required: false },
+            middleName: { type: String, trim: true, required: false },
+            lastName: { type: String, trim: true, required: false },
+        },
         role: {
             type: String,
             enum: [ENUM.ROLE.CONTENT, ENUM.ROLE.UPCOMING_CONTENT, ENUM.ROLE.VIEWER],
             required: true,
         },
+        isEmailVerify: { type: Boolean, required: false, default: false },
     },
     {
         versionKey: false,

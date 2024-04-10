@@ -51,6 +51,10 @@ class V1UserRouteClass extends BaseRoute {
         this.router.put('/reset-password', (req: Request, res: Response, next: NextFunction) => {
             UserController.resetPasswordController(req, res, next);
         });
+
+        this.router.post('/verify-email', (req: Request, res: Response, next: NextFunction) => {
+            UserController.verifyEmailController(req, res, next);
+        });
     }
 }
 export default new V1UserRouteClass('/v1/user');

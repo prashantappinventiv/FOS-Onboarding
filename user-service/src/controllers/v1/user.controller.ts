@@ -1,6 +1,6 @@
 import { RESPONSE } from '../../common/responses';
 import { UserService } from '../../service/v1/user.service';
-import { User } from '../../typings/user.typings';
+import { User, VerifyEmail } from '../../typings/user.typings';
 import BaseClass from '../base.controller';
 import { Request, Response, NextFunction } from 'express';
 
@@ -105,6 +105,23 @@ class UserClass extends BaseClass {
             }
         } catch (err) {
             console.log('err==================> reset password', err);
+            return this.sendResponse(res, RESPONSE.commonErrorHandler(err, 500), {});
+        }
+    }
+
+    /**
+     * @method POST
+     * @description Verify Email
+     * @param payload - req.body
+     * @author Fos Social media
+     */
+    async verifyEmailController(req: Request, res: Response, next: NextFunction) {
+        try {
+            const payload: VerifyEmail = req.body;
+            const result = await UserService.VerifyEmailService(payload);
+            return this.sendResponse(res, RESPONSE.USER.EMAIL_VERIFIED, result);
+        } catch (err) {
+            console.log('err==================> verfied email', err);
             return this.sendResponse(res, RESPONSE.commonErrorHandler(err, 500), {});
         }
     }
